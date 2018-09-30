@@ -1,0 +1,108 @@
+# https://www.kilobitspersecond.com/2014/02/10/understanding-gnu-screens-hardstatus-strings/
+
+# Set default encoding using utf8
+# Run everything in UTF-8.
+defutf8 on  
+
+## 解决中文乱码,这个要按需配置
+defencoding utf8
+encoding utf8 utf8
+
+#兼容shell 使得.bashrc .profile /etc/profile等里面的别名等设置生效
+shell -$SHELL
+
+#set the startup message
+startup_message off
+
+term linux
+
+## 解决无法滚动
+termcapinfo xterm|xterms|xs ti@:te=\E[2J 
+
+# 屏幕缓冲区行数
+defscrollback 10000
+
+# Keep dead windows around until I tell them to exit.
+zombie cr
+
+# If a window goes unresponsive, don't block the whole session waiting for it.
+nonblock on
+
+# Never, ever turn this off.
+autodetach on
+
+# 下标签设置
+hardstatus on
+
+# caption description:
+# caption always "%?%F%{-b bc}%:%{-b bb}%?%C|%D|%M %d|%H%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f* %t%{-}%+Lw%-0<"
+#
+# Anything I don't describe is treated literally.
+#
+# %?        - Start of a conditional statement.
+#  %F       - Use this part of the statement if the window has focus (i.e. it
+#             is the only window or the currently active one).
+#  %{-b bc} - Turn off bold, blue foreground, cyan background.
+# %:        - else
+#  %{-b bb} - Turn off bold, blue foreground, blue background (this obscures
+#             the text on non-focused windows and just gives a blue line).
+# %?        - End conditional statement.
+#  %C       - time (hh:mm, leading space) in 12 hour format
+#  %D       - Three-letter day-of-week appreviation
+#  %M       - Three-letter month appreviation
+#  %d       - Day of the month
+#  %H       - hostname
+#  %?       - Start of conditional statement.
+# %F      - Use this part of the statement if the window has focus.
+# %{+u wb}  - underlined, white foreground, blue background
+#  %?       - End conditional (if not focused, text remaind blue on blue).
+#  %L=    - truncation/padding point.  With the 'L' qualifier, basically
+#             just acts as a reference point.  Further truncation/padding is
+#             done relative to here, not the beginning of the string
+#  %-Lw   - window list up to but not including the current window (-),
+#             show window flags (L)
+#  %45>   - truncation/padding marker; place this point about 45% of the
+#             way into the display area (45)
+#  %{+b by} - add bold (still underlined from before), blue foreground,
+#             yellow background
+#    %n   - number of the current window
+#    %f   - flags for current window
+#    %t   - title of current window
+#  %{-}   - undo last color change (so now we're back to underlined white
+#             on blue)  (technically, this is a pop; a second invocation
+#             would drop things back to unadorned blue on cyan)
+#  %+Lw   - window list from the next window on (-), show window flags (L)
+#  %-0<   - truncation/padding point.  Place this point zero spaces (0)
+#             from the right margin (-).
+
+#caption always "%{= kw}%-w%{= kG}%{+b}[%n %t]%{-b}%{= kw}%+w %=%d %M %0c %{g}%H%{-}" 
+caption always "%{= kw}%-w%{= kG}%{+b}[%n %t]%{-b}%{= kw}%+w %=%Y-%m-%d %{G}%H%{-}"
+#关闭闪屏
+vbell off
+#Keboard binding
+#bind Alt+z to move to previous window
+bindkey ^[z prev
+# bind Alt+x to move to next window
+bindkey ^[x next 
+# bind Alt`~= to screen0~12
+bindkey "^[`" select 0
+bindkey "^[1" select 1
+bindkey "^[2" select 2
+bindkey "^[3" select 3
+bindkey "^[4" select 4
+bindkey "^[5" select 5
+bindkey "^[6" select 6
+bindkey "^[7" select 7
+bindkey "^[8" select 8
+bindkey "^[9" select 9
+bindkey "^[0" select 10
+bindkey "^[-" select 11
+bindkey "^[=" select 12
+# bind F5 to create a new screen
+bindkey -k k5 screen
+# bind F6 to detach screen session (to background)
+bindkey -k k6 detach
+# bind F7 to kill current screen window
+bindkey -k k7 kill
+# bind F8 to rename current screen window
+bindkey -k k8 title
