@@ -2,7 +2,7 @@
 
 # Set default encoding using utf8
 # Run everything in UTF-8.
-defutf8 on  
+defutf8 on
 
 ## 解决中文乱码,这个要按需配置
 defencoding utf8
@@ -83,7 +83,7 @@ vbell off
 #bind Alt+z to move to previous window
 bindkey ^[z prev
 # bind Alt+x to move to next window
-bindkey ^[x next 
+bindkey ^[x next
 # bind Alt`~= to screen0~12
 bindkey "^[`" select 0
 bindkey "^[1" select 1
